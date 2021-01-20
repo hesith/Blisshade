@@ -1,0 +1,139 @@
+{% if error_warning %}
+<div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
+{% endif %}
+
+{% if shipping_methods %}
+<!-- <p>{{ text_shipping_method }}</p> -->
+<p>Please note that currently we support only islandwide Home Delivery.</p>
+
+{% for shipping_method in shipping_methods %}
+<!-- <p><strong>{{ shipping_method.title }}</strong></p> -->
+<p><strong>Delivery Charges</strong></p>
+
+{% if not shipping_method.error %}
+{% for quote in shipping_method.quote %}
+<div class="radio">
+  <label> {% if quote.code == code or not code %}
+    {% set code = quote.code %}
+    <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked" />
+    {% else %}
+    <input type="radio" name="shipping_method" value="{{ quote.code }}" />
+    {% endif %}
+    <!-- {{ quote.title }} - {{ quote.text }} -->
+    Delivery charge for <span id="seldis"></span> District is
+    <span id="dc"></span>/-
+
+  </label>
+</div>
+{% endfor %}
+{% else %}
+<div class="alert alert-danger alert-dismissible">{{ shipping_method.error }}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<p hidden><strong>{{ text_comments }}</strong></p>
+<p hidden>
+  <textarea name="comment" rows="8" class="form-control">{{ comment }}</textarea>
+</p>
+<div class="buttons">
+  <div class="pull-right">
+    <input type="button" value="{{ button_continue }}" id="button-shipping-method" data-loading-text="{{ text_loading }}" class="btn btn-primary" />
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function(){
+
+
+if(!(document.getElementById("payment-existing"))){
+    if(document.getElementById("dbsame").checked == true){
+      var district = document.getElementById("gpdistrict").value;
+    }else{
+      var district = document.getElementById("gsdistrict").value;
+    }
+}else{
+      var district = regdis;
+    }
+
+
+
+    document.getElementById("seldis").innerHTML = district;
+
+    if (district == "AMPARA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "ANURADHAPURA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "BADULLA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "BATTICALOA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "COLOMBO"){
+      document.getElementById("dc").innerHTML = 180;
+    }
+    else if(district == "GALLE"){
+      document.getElementById("dc").innerHTML = 250;
+    }
+    else if(district == "GAMPAHA"){
+      document.getElementById("dc").innerHTML = 200;
+    }
+    else if(district == "HAMBANTOTA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "JAFFNA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "KALUTARA"){
+      document.getElementById("dc").innerHTML = 250;
+    }
+    else if(district == "KANDY"){
+      document.getElementById("dc").innerHTML = 250;
+    }
+    else if(district == "KEGALLE"){
+      document.getElementById("dc").innerHTML = 250;
+    }
+    else if(district == "KILINOCHCHI"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "KURUNEGALA"){
+      document.getElementById("dc").innerHTML = 250;
+    }
+    else if(district == "MANNAR"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "MATALE"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "MATARA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "MONARAGALA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "MULLAITIVU"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "NUWARA ELIYA"){
+      document.getElementById("dc").innerHTML = 250;
+    }
+    else if(district == "POLONNARUWA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "PUTTALAM"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "RATNAPURA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "TRINCOMALEE"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+    else if(district == "VAVUNIYA"){
+      document.getElementById("dc").innerHTML = 300;
+    }
+  })
+</script>
